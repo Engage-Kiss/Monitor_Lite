@@ -1,11 +1,11 @@
 [Unit]
-Description=Monitor Lite
+Description=Monitor_Lite
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/root/Monitor Lite
+ExecStart=/root/Monitor_Lite
 Restart=always
 RestartSec=5
 
