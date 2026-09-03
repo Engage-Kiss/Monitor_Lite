@@ -70,4 +70,4 @@ Json=$(printf '{
     "disk": {
     "used": "%s"
     }
-}' "$Monitor_name" "$Timestamp" "$Cpu_usage" "$Memory_usage" "$Disk_usage"
+}' "$Monitor_name" "$Timestamp" "$Cpu_usage" "$Memory_usage" "$Disk_usage")
