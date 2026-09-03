@@ -60,29 +60,29 @@ while true; do
     Disk_usage=$(get_disk_usage)
     Timestamp=$(date +%s)
 
-Json=$(printf '{
-    "name": "%s",
-    "timestamp": %s,
-    "cpu": %s,
-    "memory": {
-    "used": %s
-    },
-    "disk": {
-    "used": %s
-    }
-}' "$Monitor_name" "$Timestamp" "$Cpu_usage" "$Memory_usage" "$Disk_usage")
+    Json=$(printf '{
+        "name": "%s",
+        "timestamp": %s,
+        "cpu": %s,
+        "memory": {
+        "used": %s
+        },
+        "disk": {
+        "used": %s
+        }
+    }' "$Monitor_name" "$Timestamp" "$Cpu_usage" "$Memory_usage" "$Disk_usage")
 
-    echo "$Json"
+        echo "$Json"
 
-    curl -sS \
-        -X POST \
-        -H "Content-Type: application/json" \
-        -d "$Json" \
-        "$Monitor_url"
+        curl -sS \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -d "$Json" \
+            "$Monitor_url"
 
-    echo
-    echo "Next report in ${Report_interval}s..."
+        echo
+        echo "Next report in ${Report_interval}s..."
 
-    sleep "$Report_interval"
+        sleep "$Report_interval"
 
 done
