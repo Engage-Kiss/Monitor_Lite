@@ -49,7 +49,7 @@ get_memory_usage() {
 
 get_disk_usage() {
     df -P / | awk 'NR==2 {
-        gsub("/", "", $5)
-        printf "%.2f", %5
+        gsub("%", "", $5)
+        printf "%.2f", $5
     }'
 }
