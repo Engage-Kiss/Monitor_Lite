@@ -58,7 +58,7 @@ while true; do
     Cpu_usage=$(get_cpu_usage)
     Memory_usage=$(get_memory_usage)
     Disk_usage=$(get_disk_usage)
-Timestamp=$(date +%s)
+    Timestamp=$(date +%s)
 
 Json=$(printf '{
     "name": "%s",
@@ -71,3 +71,18 @@ Json=$(printf '{
     "used": %s
     }
 }' "$Monitor_name" "$Timestamp" "$Cpu_usage" "$Memory_usage" "$Disk_usage")
+
+    echo "$Json"
+
+    curl -sS \
+        -X POST \
+        -H "Content-Type: application/json" \
+        -d "$Json" \
+        "$Monitor_url"
+
+    echo
+    echo "Next report in ${Report_interval}s..."
+
+    sleep "$Report_interval"
+
+done
