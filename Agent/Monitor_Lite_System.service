@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/root/Monitor_Lite
+ExecStart=/root/Monitor_Lite/Monitor_Lite_Server.sh
 Restart=always
 RestartSec=5
 
