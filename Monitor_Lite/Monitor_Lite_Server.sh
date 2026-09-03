@@ -53,3 +53,21 @@ get_disk_usage() {
         printf "%.2f", $5
     }'
 }
+
+while true; do
+    Cpu_usage=$(get_cpu_usage)
+    Memory_usage=$(get_memory_usage)
+    Disk_usage=$(get_disk_usage)
+Timestamp=$(data +%s)
+
+Json=$(printf '{
+    "name": "%s",
+    "timestamp": "%s",
+    "cpu": "%s",
+    "memory": {
+    "used": "%s"
+    },
+    "disk": {
+    "used": "%s"
+    }
+}' "$Monitor_name" "$Timestamp" "$Cpu_usage" "$Memory_usage" "$Disk_usage"
