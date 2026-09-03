@@ -58,7 +58,7 @@ while true; do
     Cpu_usage=$(get_cpu_usage)
     Memory_usage=$(get_memory_usage)
     Disk_usage=$(get_disk_usage)
-Timestamp=$(data +%s)
+Timestamp=$(date +%s)
 
 Json=$(printf '{
     "name": "%s",
