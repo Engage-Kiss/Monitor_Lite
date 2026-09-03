@@ -22,3 +22,16 @@ get_cpu_usage() {
 
     Total_2=$((user + nice + system + idle + iowait + irq + softirq + steal))
     Idle_2=$((idle + iowait))
+
+    Total_diff=$((Total_2 - Total_1))
+    Idle_diff=$((Idle_2 - Idle_1))
+
+    if ((Total_diff == 0)); then
+        echo "0.00"
+        return
+    fi
+
+    awk "BEGIN {
+        printf \"%.2f\", (1 - $Idle_diff / $Total_diff) *100
+    }"
+}
