@@ -86,3 +86,77 @@ while true; do
     sleep "$Report_interval"
 
 done
+
+
+
+
+--------------------------------------------------Temp
+# 增加 上传/下载 上传总量/下载总量
+get_network_usage() {
+    Network_rx_1=$(awk -F'[: ]+' '
+        $1 != "lo" && $1 != "" {
+            Rx += $2
+        }
+        END {
+            print Rx
+        }
+    ' /proc/net/dev)
+
+    Network_tx_1=$(awk -F'[: ]+' '
+        $1 != "lo" && $1 != "" {
+            Tx += $10
+        }
+        END {
+            print Tx
+        }
+    ' /proc/net/dev)
+
+    sleep 1
+
+    Network_rx_2=$(awk -F'[: ]+' '
+        $1 != "lo" && $1 != "" {
+            Rx += $2
+        }
+        END {
+            print Rx
+        }
+    ' /proc/net/dev)
+
+    Network_tx_2=$(awk -F'[: ]+' '
+        $1 != "lo" && $1 != "" {
+            Tx += $10
+        }
+        END {
+            print Tx
+        }
+    ' /proc/net/dev)
+
+    Network_download=$((Network_rx_2 - Network_rx_1))
+    Network_upload=$((Network_tx_2 - Network_tx_1))
+
+    Network_download_speed=$(awk "BEGIN {
+        printf \"%.2f\", $Network_download / 1024 / 1024
+    }")
+
+    Network_upload_speed=$(awk "BEGIN {
+        printf \"%.2f\", $Network_upload / 1024 / 1024
+    }")
+
+    Network_download_total=$(awk "BEGIN {
+        printf \"%.2f\", $Network_rx_2 / 1024 / 1024 / 1024
+    }")
+
+    Network_upload_total=$(awk "BEGIN {
+        printf \"%.2f\", $Network_tx_2 / 1024 / 1024 / 1024
+    }")
+}
+
+
+
+# 增加 JSON
+"network": {
+    "upload": 1.23,
+    "download": 4.56,
+    "upload_total": 12.34,
+    "download_total": 56.78
+}
