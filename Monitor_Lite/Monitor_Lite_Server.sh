@@ -43,6 +43,6 @@ get_memory_usage() {
     Mem_used=$((Mem_total - Mem_available))
 
     awk "BEGIN {
-        print \"%.2f\", $Mem_used / 1024
+        printf \"%.2f\", $Mem_used / 1024
     }"
 }
