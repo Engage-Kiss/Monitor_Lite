@@ -5,7 +5,7 @@ Monitor_name="${1:-}"
 Monitor_url="${2:-}"
 Monitor_token="${3:-}"
 
-if [[ -z "Monitor_name" || -z "$Monitor_url" || -z "$Monitor_token" ]]; then
+if [[ -z "$Monitor_name" || -z "$Monitor_url" || -z "$Monitor_token" ]]; then
     echo "Usage: $0 <Monitor_name> <Monitor_url> <Monitor_token>"
     exit 1
 fi
