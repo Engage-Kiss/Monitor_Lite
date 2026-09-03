@@ -62,12 +62,12 @@ Timestamp=$(date +%s)
 
 Json=$(printf '{
     "name": "%s",
-    "timestamp": "%s",
-    "cpu": "%s",
+    "timestamp": %s,
+    "cpu": %s,
     "memory": {
-    "used": "%s"
+    "used": %s
     },
     "disk": {
-    "used": "%s"
+    "used": %s
     }
 }' "$Monitor_name" "$Timestamp" "$Cpu_usage" "$Memory_usage" "$Disk_usage")
