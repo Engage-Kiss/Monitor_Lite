@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-Report_Interval=2
-Monitor_Name="${1:-}"
-Monitor_URL="${2:-}"
-Monitor_Token="${3:-}"
+Report_interval=2
+Monitor_name="${1:-}"
+Monitor_url="${2:-}"
+Monitor_token="${3:-}"
 
 if [[ -z "${1:-}" || -z "${2:-}" || -z "${3:-}" ]]; then
-    echo "Usage: $0 <Monitor_Name> <Monitor_URL> <Monitor_Token>"
+    echo "Usage: $0 <Monitor_name> <Monitor_url> <Monitor_token>"
     exit 1
 fi
 
@@ -32,9 +32,17 @@ get_cpu_usage() {
     fi
 
     awk "BEGIN {
-        printf \"%.2f\", (1 - $Idle_diff / $Total_diff) *100
+        printf \"%.2f\", (1 - $Idle_diff / $Total_diff) * 100
     }"
 }
 
 get_memory_usage() {
-    mem_total=$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)
+    Mem_total=$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)
+    Mem_available=$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)
+
+    Mem_used=$((Mem_total - Mem_available))
+
+    awk "BEGIN {
+        print \"%.2f\", $Mem_used / 1024
+    }"
+}
