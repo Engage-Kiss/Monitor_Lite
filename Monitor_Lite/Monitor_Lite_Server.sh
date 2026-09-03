@@ -35,3 +35,6 @@ get_cpu_usage() {
         printf \"%.2f\", (1 - $Idle_diff / $Total_diff) *100
     }"
 }
+
+get_memory_usage() {
+    mem_total=$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)
