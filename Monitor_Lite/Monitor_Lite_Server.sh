@@ -13,18 +13,18 @@ fi
 get_cpu_usage() {
     read -r _ user nice system idle iowait irq softirq steal _ < /proc/stat
 
-    Total_1=$((user + nice + system + idle + iowait + irq + softirq + steal))
-    Idle_1=$((idle + iowait))
+    Cpu_total_1=$((user + nice + system + idle + iowait + irq + softirq + steal))
+    Cpu_idle_1=$((idle + iowait))
 
     sleep 1
 
     read -r _ user nice system idle iowait irq softirq steal _ < /proc/stat
 
-    Total_2=$((user + nice + system + idle + iowait + irq + softirq + steal))
-    Idle_2=$((idle + iowait))
+    Cpu_total_2=$((user + nice + system + idle + iowait + irq + softirq + steal))
+    Cpu_idle_2=$((idle + iowait))
 
-    Total_diff=$((Total_2 - Total_1))
-    Idle_diff=$((Idle_2 - Idle_1))
+    Total_diff=$((Cpu_total_2 - Cpu_total_1))
+    Idle_diff=$((Cpu_idle_2 - Cpu_idle_1))
 
     if ((Total_diff == 0)); then
         echo "0.00"
@@ -37,12 +37,12 @@ get_cpu_usage() {
 }
 
 get_memory_usage() {
-    Mem_total=$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)
-    Mem_available=$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)
+    Memory_total=$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)
+    Memory_available=$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)
 
-    Mem_used=$((Mem_total - Mem_available))
+    Memory_used=$((Memory_total - Memory_available))
 
     awk "BEGIN {
-        printf \"%.2f\", $Mem_used / 1024
+        printf \"%.2f\", $Memory_used / 1024
     }"
 }
