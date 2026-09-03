@@ -1,3 +1,3 @@
 合作伙伴:
-chatgpt.com
+/n chatgpt.com
 gemini.google.com
