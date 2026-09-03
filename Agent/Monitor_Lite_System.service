@@ -1,1 +1,13 @@
+[Unit]
+Description=Monitor Lite
+After=network-online.target
+Wants=network-online.target
 
+[Service]
+Type=simple
+ExecStart=/root/Monitor Lite
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
