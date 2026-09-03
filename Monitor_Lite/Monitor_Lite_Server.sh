@@ -12,3 +12,13 @@ fi
 
 get_cpu_usage() {
     read -r _ user nice system idle iowait irq softirq steal _ < /proc/stat
+
+    Total_1=$((user + nice + system + idle + iowait + irq + softirq + steal))
+    Idle_1=$((idle + iowait))
+
+    sleep 1
+
+    read -r _ user nice system idle iowait irq softirq steal _ < /proc/stat
+
+    Total_2=$((user + nice + system + idle + iowait + irq + softirq + steal))
+    Idle_2=$((idle + iowait))
